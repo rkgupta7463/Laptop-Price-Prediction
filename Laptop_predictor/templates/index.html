@@ -1,0 +1,200 @@
+{% extends "base.html" %} {% block main %}
+<style>
+    .contain {
+        background-color: #dbdbdb;
+        margin: 4%;
+        padding: 0% 0% 2% 0%;
+        border-radius: 15px;
+    }
+    
+    .contain p {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 2%;
+    }
+    
+    .contain label {
+        font-weight: bold;
+        text-align: center;
+        display: block;
+    }
+    
+    .contain select,
+    .contain input,
+    .contain button {
+        width: 92%;
+        display: block;
+        margin: auto;
+    }
+    
+    .contain button {
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .headers {
+        text-align: center;
+        font-size: xx-large;
+        background-color: #a19f9f;
+        margin-top: 50px;
+        border-radius: 15px 15px 0px 0px;
+    }
+    
+    .table {
+        margin-left: 4%;
+    }
+    
+    @media screen and (max-width: 600px) {
+        .table {
+            margin-left: 0;
+            font-size: x-small;
+        }
+    }
+</style>
+
+<div class="contain">
+    <div class="headers">
+        Welcome to Laptop Price Predictor
+        <hr>
+    </div>
+    <p>This app predicts the price of a car if you want to sell. Try filling the details below</p>
+
+    <form method="post">
+        <label for="company">Laptop Brand:</label>
+        <select class="selectpicker form-select" aria-label="Default select example" name="brand" required>
+                <option selected>select Brand</option>
+                {% for b in context.laptop_brand %}
+                <option value="{{b}}">{{b}}</option>
+                {% endfor %}
+            </select>
+        <label for="company">Processor Brand:</label>
+        <select class="selectpicker form-select" aria-label="Default select example" id="pb" name="pbrand" required>
+            <option selected>select Processor Brand</option>
+            {% for p in context.pb %}
+            <option value="{{p}}">{{p}}</option>
+            {% endfor %}
+            </select>
+        <label for="company">Processor Name:</label>
+        <select class="form-select" aria-label="Default select example" name="pn" required>
+                <option selected>Select Processor Name</option>
+                {% for n in context.pn %}
+                <option value="{{n}}">{{n}}</option>
+                {% endfor %}
+            </select>
+
+        <label for="company">Select Processor Generation:</label>
+        <select class="form-select" aria-label="Default select example" name="pg" required>
+                <option selected>select fuel type</option>
+                {% for g in context.pg %}
+                <option value="{{g}}">{{g}}</option>
+                {% endfor %}
+            </select>
+
+        <label for="company">Select Ram Type:</label>
+        <select class="form-select" aria-label="Default select example" name="ram_type" required>
+                <option selected>select Ram Type</option>
+                {% for rt in context.ram_type %}
+                <option value="{{rt}}">{{rt}}</option>
+                {% endfor %}
+            </select>
+
+        <label for="company">Select Ram(GB):</label>
+        <select class="form-select" aria-label="Default select example" name="ram_gb" required>
+                <option selected>select Ram</option>
+                {% for rg in context.ram_gb %}
+                <option value="{{rg}}">{{rg}}</option>
+                {% endfor %}
+            </select>
+
+        <label for="company">Select OS:</label>
+        <select class="form-select" aria-label="Default select example" name="os" required>
+                <option selected>select OS</option>
+                {% for os in context.os %}
+                <option value="{{os}}">{{os}}</option>
+                {% endfor %}
+            </select>
+
+        <label for="company">Select HDD:</label>
+        <select class="form-select" aria-label="Default select example" name="hdd" required>
+                <option selected>select HDD</option>
+                {% for hdd in context.hdd %}
+                <option value="{{hdd}}">{{hdd}}</option>
+                {% endfor %}
+            </select>
+
+        <label for="company">Select SSD:</label>
+        <select class="form-select" aria-label="Default select example" name="ssd" required>
+                <option selected>select SSD</option>
+                {% for ssd in context.ssd %}
+                <option value="{{ssd}}">{{ssd}}</option>
+                {% endfor %}
+            </select>
+
+        <label for="company">Select Graphic Card:</label>
+        <select class="form-select" aria-label="Default select example" name="gcg" required>
+                <option selected>select graphic card(GB)</option>
+                {% for gcg in context.gcg %}
+                <option value="{{gcg}}">{{gcg}}</option>
+                {% endfor %}
+            </select>
+
+        <label for="company">Select Touchscreen:</label>
+        <select class="form-select" aria-label="Default select example" name="ts" required>
+                <option selected>select Touchscreen</option>
+                {% for ts in context.ts %}
+                <option value="{{ts}}">{{ts}}</option>
+                {% endfor %}
+            </select>
+
+        <label for="company">Select MS Office:</label>
+        <select class="form-select" aria-label="Default select example" name="ms" required>
+                <option selected>select ms office</option>
+                {% for ms in context.ms %}
+                <option value="{{ms}}">{{ms}}</option>
+                {% endfor %}
+            </select>
+
+        <label for="company">Select Rated:</label>
+        <select class="form-select" aria-label="Default select example" name="rating" required>
+                <option selected>select Rating</option>
+                {% for rt in context.rating %}
+                <option value="{{rt}}">{{rt}}</option>
+                {% endfor %}
+            </select>
+
+
+        <button type="submit" class="btn btn-primary">Predict Price</button>
+    </form>
+
+    {% if context.predicted %}
+
+    <table class="table table-hover">
+        <p class="text-center">Your Laptop Details</p>
+        <thead>
+            <tr>
+                <th scope="col">Lapton Brand</th>
+                <th scope="col">Processor Name</th>
+                <th scope="col">Processor Brand</th>
+                <th scope="col">MS Office</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{context.lbs}}</td>
+                <td>{{context.pns}}</td>
+                <td>{{context.pbs}}</td>
+                <td>{{context.mss}}</td>
+                <td>Ram: {{context.Rams}}GB<br>HDD: {{context.hdds}}GB<br>SDD: {{context.ssds}}GB<br>Graphic Card: {{context.gcgs}}GB<br>OS: {{context.os}}<br>Touch Screen: {{context.tss}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <div class="predicted">
+        <h3 class="text-center"><span id="prediction">Prediction ₹: {{context.pred_value}}</span></h3>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

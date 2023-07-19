@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block main %}
+
+<div class="container">
+    <p class="text-center text-white" style="font-weight: bold; font-size:x-large;">Sample Of Top 6 Expensive Laptops:</p>
+    <div class="row row-col-4 mt-4">
+        {% for brand, link, price in context.laptops %}
+        <div class="col m-2">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ link }}" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ brand }}</h5>
+                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                    <h5 class="card-title">Prediction ₹: <span>{{ price }}</span> </h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+</div>
+{% endblock %}
